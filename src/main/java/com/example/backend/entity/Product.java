@@ -3,6 +3,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Product {
@@ -10,14 +12,23 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Code is mandatory")
     private String code;
+    @NotBlank(message = "Name is mandatory")
     private String name;
+    @NotBlank(message = "Description is mandatory")
     private String description;
+    @NotBlank(message = "Price is mandatory")
     private double price;
+    @PositiveOrZero(message = "Quantity must be a positive number or zero" )
     private int quantity;
+    @NotBlank(message = "Inventory Status is mandatory")
     private String inventoryStatus;
+    @NotBlank(message = "Category is mandatory")
     private String category;
+    @NotBlank(message = "Image is mandatory")
     private String image;
+    @PositiveOrZero(message = " Rating must be a positive number or zero" )
     private double rating;
 
     public Product(Long id, String code, String name, String description, double price, int quantity, String inventoryStatus, String category, String image, double rating) {
