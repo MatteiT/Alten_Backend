@@ -58,7 +58,7 @@ public class ProductControllers {
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody @Valid Product updatedProduct) {
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
-            updatedProduct.setId(id); // Ensure the ID remains the same
+            updatedProduct.setId(id);
             productRepository.save(updatedProduct);
             return ResponseEntity.ok(updatedProduct);
         } else {
