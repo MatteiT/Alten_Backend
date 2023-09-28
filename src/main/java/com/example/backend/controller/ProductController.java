@@ -12,10 +12,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
-public class ProductControllers {
+public class ProductController {
     private final ProductRepository productRepository;
 
-    public ProductControllers(ProductRepository productRepository) {
+    public ProductController(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
@@ -37,18 +37,20 @@ public class ProductControllers {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Product> updateProductPartial(@PathVariable Long id, @RequestBody @Valid Product updatedProduct) {
-        Optional<Product> product = productRepository.findById(id);
-        if (product.isPresent()) {
-            Product existingProduct = product.get();
-            if (updatedProduct.getName() != null) {
-                existingProduct.setName(updatedProduct.getName());
-            }
-            if (updatedProduct.getDescription() != null) {
-                existingProduct.setDescription(updatedProduct.getDescription());
-            }
-            productRepository.save(existingProduct);
-            return ResponseEntity.ok(existingProduct);
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            Product productToUpdate = optionalProduct.get();
+            productToUpdate.setCode(updatedProduct.getCode());
+            productToUpdate.setName(updatedProduct.getName());
+            productToUpdate.setDescription(updatedProduct.getDescription());
+            productToUpdate.setPrice(updatedProduct.getPrice());
+            productToUpdate.setQuantity(updatedProduct.getQuantity());
+            productToUpdate.setInventoryStatus(updatedProduct.getInventoryStatus());
+            productToUpdate.setCategory(updatedProduct.getCategory());
+            productToUpdate.setImage(updatedProduct.getImage());
+            productToUpdate.setRating(updatedProduct.getRating());
+            return ResponseEntity.ok(productRepository.save(productToUpdate));
         } else {
             return ResponseEntity.notFound().build();
         }

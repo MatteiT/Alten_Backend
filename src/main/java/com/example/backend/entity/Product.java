@@ -18,7 +18,7 @@ public class Product {
     private String name;
     @NotBlank(message = "Description is mandatory")
     private String description;
-    @NotBlank(message = "Price is mandatory")
+    @PositiveOrZero(message = "Price must be a positive number or zero" )
     private double price;
     @PositiveOrZero(message = "Quantity must be a positive number or zero" )
     private int quantity;
@@ -31,8 +31,7 @@ public class Product {
     @PositiveOrZero(message = " Rating must be a positive number or zero" )
     private double rating;
 
-    public Product(Long id, String code, String name, String description, double price, int quantity, String inventoryStatus, String category, String image, double rating) {
-        this.id = id;
+    public Product(String code, String name, String description, double price, int quantity, String inventoryStatus, String category, String image, double rating) {
         this.code = code;
         this.name = name;
         this.description = description;
@@ -43,16 +42,10 @@ public class Product {
         this.image = image;
         this.rating = rating;
     }
-
     public Product() {
     }
-
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getCode() {
@@ -71,9 +64,7 @@ public class Product {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() {return description;}
 
     public void setDescription(String description) {
         this.description = description;
