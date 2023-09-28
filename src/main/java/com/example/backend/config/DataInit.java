@@ -3,7 +3,6 @@ package com.example.backend.config;
 import com.example.backend.entity.Product;
 import com.example.backend.repository.ProductRepository;
 import com.example.backend.service.ProductDataWrapper;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
