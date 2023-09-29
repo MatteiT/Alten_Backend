@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+// The @CrossOrigin annotation is used to enable cross-origin requests from the Angular application.
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/products")
 public class ProductController {
@@ -28,6 +29,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         Optional<Product> product = productRepository.findById(id);
+        // The product object is wrapped in a ResponseEntity object and returned or a 404 Not Found HTTP status code is returned.
         return product.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -41,6 +43,7 @@ public class ProductController {
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
         Optional<Product> optionalProduct = productRepository.findById(id);
         if (optionalProduct.isPresent()) {
+            // The productToUpdate object is updated with the values from the updatedProduct object.
             Product productToUpdate = optionalProduct.get();
             productToUpdate.setCode(updatedProduct.getCode());
             productToUpdate.setName(updatedProduct.getName());
@@ -62,8 +65,10 @@ public class ProductController {
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
             productRepository.deleteById(id);
+            // The ResponseEntity.noContent() method returns a 204 No Content HTTP status code if the product is deleted successfully.
             return ResponseEntity.noContent().build();
         } else {
+            // The ResponseEntity.notFound() method returns a 404 Not Found HTTP status code if the product is not found.
             return ResponseEntity.notFound().build();
         }
     }

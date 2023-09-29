@@ -5,6 +5,8 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Product {
+
+    // The @Id annotation is used to specify the primary key of an entity.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,15 +16,20 @@ public class Product {
     private String name;
     @NotBlank(message = "Description is mandatory")
     private String description;
+
+    // The @PositiveOrZero annotation is used to validate that the price and quantity are positive numbers or zero.
     @PositiveOrZero(message = "Price must be a positive number or zero" )
     private double price;
     @PositiveOrZero(message = "Quantity must be a positive number or zero" )
     private int quantity;
 
+    // The InventoryStatus enum is used to represent the inventory status of a product.
     @Enumerated(EnumType.STRING)
     private InventoryStatus inventoryStatus;
     @NotBlank(message = "Category is mandatory")
     private String category;
+
+    // the image is optional, so we don't need to add any validation annotation to it.
     private String image;
     @PositiveOrZero(message = " Rating must be a positive number or zero" )
     private double rating;
