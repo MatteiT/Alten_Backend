@@ -23,7 +23,6 @@ public class Product {
     private InventoryStatus inventoryStatus;
     @NotBlank(message = "Category is mandatory")
     private String category;
-    @NotBlank(message = "Image is mandatory")
     private String image;
     @PositiveOrZero(message = " Rating must be a positive number or zero" )
     private double rating;
