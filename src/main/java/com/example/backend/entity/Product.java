@@ -1,14 +1,10 @@
 package com.example.backend.entity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,8 +18,9 @@ public class Product {
     private double price;
     @PositiveOrZero(message = "Quantity must be a positive number or zero" )
     private int quantity;
-    @NotBlank(message = "Inventory Status is mandatory")
-    private String inventoryStatus;
+
+    @Enumerated(EnumType.STRING)
+    private InventoryStatus inventoryStatus;
     @NotBlank(message = "Category is mandatory")
     private String category;
     @NotBlank(message = "Image is mandatory")
@@ -31,7 +28,8 @@ public class Product {
     @PositiveOrZero(message = " Rating must be a positive number or zero" )
     private double rating;
 
-    public Product(String code, String name, String description, double price, int quantity, String inventoryStatus, String category, String image, double rating) {
+    public Product(Long id, String code, String name, String description, double price, int quantity, InventoryStatus inventoryStatus, String category, String image, double rating) {
+        this.id = id;
         this.code = code;
         this.name = name;
         this.description = description;
@@ -47,7 +45,6 @@ public class Product {
     public Long getId() {
         return id;
     }
-
     public String getCode() {
         return code;
     }
@@ -86,11 +83,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getInventoryStatus() {
+    public InventoryStatus getInventoryStatus() {
         return inventoryStatus;
     }
 
-    public void setInventoryStatus(String inventoryStatus) {
+    public void setInventoryStatus(InventoryStatus inventoryStatus) {
         this.inventoryStatus = inventoryStatus;
     }
 
